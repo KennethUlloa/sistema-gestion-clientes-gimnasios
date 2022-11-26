@@ -2,11 +2,10 @@ package ec.edu.epn.grupo5.clientes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 public class Cliente {
-    private String cedula;
-    private String nombres;
-    private String apellidos;
+    private final String cedula;
+    private final String nombres;
+    private final String apellidos;
     private LocalDate fecha;
     private char sexo;
     private String telefono;
