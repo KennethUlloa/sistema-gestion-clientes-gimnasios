@@ -1,7 +1,6 @@
 package ec.edu.epn.grupo5.clientes;
 
-import ec.edu.epn.grupo5.basededatos.ConexionBaseDatos;
-import ec.edu.epn.grupo5.basededatos.SQLTable;
+import ec.edu.epn.grupo5.basededatos.*;
 import ec.edu.epn.grupo5.validacion.ValidadorCedula;
 
 import java.sql.SQLException;
@@ -18,50 +17,26 @@ public class ControladorCliente {
     }
 
     public void registrarCliente(Cliente cliente) throws Exception{
-        String cedula = cliente.getCedula();
-        String nombres = cliente.getNombres();
-        String apellidos = cliente.getApellidos();
-        LocalDate fecha = cliente.getFecha();
-        String fechaFormateada = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        String sexo = cliente.getSexo() + "";
-        String telefono=cliente.getTelefono();
-        String nombreContacto = cliente.getNombreContacto();
-        String telefonoContacto = cliente.getTelefonoContacto();
-        String correoElectronico = cliente.getCorreoElectronico();
-        String direccion = cliente.getDireccion();
-        //String formato = "INSERT INTO clientes VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')";
-        String sentencia = ControladorCliente.crearSentenciaInsertar(
+
+        InsertSentence sentencia = new InsertSentence(
                 "clientes",
-                cedula,
-                nombres,
-                apellidos,
-                sexo,
-                fechaFormateada,
-                correoElectronico,
-                telefono,
-                nombreContacto,
-                telefonoContacto,
-                direccion);
+                cliente.getCedula(),
+                cliente.getNombres(),
+                cliente.getApellidos(),
+                cliente.getSexo() + "",
+                cliente.getFecha().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                cliente.getCorreoElectronico(),
+                cliente.getTelefono(),
+                cliente.getNombreContacto(),
+                cliente.getTelefonoContacto(),
+                cliente.getDireccion());
         try{
-            conexion.ejecutarSentencia(sentencia);
+
+            conexion.ejecutarSentencia(sentencia.getSentence());
         }catch (SQLException ex){
             throw new Exception("El sistema no pudo registral al cliente");
         }
-
     }
-
-    public static String crearSentenciaInsertar(String tabla, String... valores) {
-        String consulta = "INSERT INTO " + tabla + " VALUES(";
-        for(int i = 0; i < valores.length; i++) {
-            consulta += "'" + valores[i] + "'";
-            if (i != valores.length - 1){
-                consulta += ",";
-            }
-        }
-        consulta += ")";
-        return  consulta;
-    }
-
     public Cliente consultarCliente(String cedula) throws Exception {
         ValidadorCedula validadorCedula = new ValidadorCedula();
         validadorCedula.validar(cedula);
