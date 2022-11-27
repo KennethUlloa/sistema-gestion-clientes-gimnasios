@@ -13,8 +13,8 @@ import static org.junit.Assert.*;
 
 @RunWith(value= Parameterized.class)
 public class ControladorClienteParametersTest {
-    ConexionBaseDatos conexionBaseDatos=null;
-    ControladorCliente controladorCliente=null;
+    private ConexionBaseDatos conexionBaseDatos=null;
+    private ControladorCliente controladorCliente=null;
 
     private String cedulaCliente;
     private boolean expected;
