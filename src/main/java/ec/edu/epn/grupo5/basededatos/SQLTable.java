@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SQLTable {
+    //as
     private String[] columnNames;
     private HashMap<String, Integer> columnIndex;
     private String tableName;
