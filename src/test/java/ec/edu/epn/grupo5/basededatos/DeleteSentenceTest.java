@@ -31,7 +31,7 @@ public class DeleteSentenceTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Test 9");
+        System.out.println("DeleteSentence: Test 9");
     }
 
     @Test
