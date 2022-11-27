@@ -1,53 +1,29 @@
 package ec.edu.epn.grupo5.clientes;
 
 import ec.edu.epn.grupo5.basededatos.ConexionBaseDatos;
-import ec.edu.epn.grupo5.clientes.excepciones.ErrorCedula;
-import ec.edu.epn.grupo5.validacion.ValidadorCedula;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 
-
 public class ControladorClienteTest {
-
-    @Mock
-    private ControladorCliente controladorMock;
-    private ConexionBaseDatos conexionMock;
-
     @Test
-    public void given_any_simulated_clienteId_for_delete_when_is_correct_then_ok(){
-        controladorMock = Mockito.mock(ControladorCliente.class);
+    public void given_insert_client_when_not_valid_cedula_then_error(){
+       Cliente c= new Cliente("1514","Angelo Alexandro",
+                "Abad Abarca","15-08-1997",
+                'M',"0963870957",
+                "Diana Abad","0964255255",
+                "abad14@gmail.com","Av.Maldonado");
+
+       ConexionBaseDatos conexionBaseDatos = new ConexionBaseDatos("jdbc:sqlite:gimnasio.db");
+       ControladorCliente controladorCliente=new ControladorCliente(conexionBaseDatos);
+
+        Exception error=null;
         try {
-            Mockito.when(controladorMock.eliminarCliente(Mockito.anyString())).thenReturn(true);
+            controladorCliente.registrarCliente(c);
         } catch (Exception e) {
-            e.printStackTrace();
+            error=e;
         }
-        try {
-            assertTrue(controladorMock.eliminarCliente("1726354796"));
-        } catch (ErrorCedula e) {
-            e.printStackTrace();
-        }
-        System.out.println("Test 10");
-    };
 
-    @Test
-    public void given_clientId_for_delete_when_is_incorrect_then_ok(){
-        conexionMock = Mockito.mock(ConexionBaseDatos.class);
-        ValidadorCedula validadorCedula = new ValidadorCedula();
-        ControladorCliente controladorCliente = new ControladorCliente(conexionMock);
-        boolean expected = true;
-        try {
-            validadorCedula.validar("1726354796");
-        } catch (ErrorCedula e) {
-            e.printStackTrace();
-        }
-        try {
-            assertEquals(controladorCliente.eliminarCliente("1726354796"),expected);
-        } catch (ErrorCedula e) {
-            e.printStackTrace();
-        }
-        System.out.println("Test 11");
+        assertNotNull(error);
     }
 }

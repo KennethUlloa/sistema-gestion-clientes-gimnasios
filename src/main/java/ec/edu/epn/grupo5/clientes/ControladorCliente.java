@@ -1,7 +1,6 @@
 package ec.edu.epn.grupo5.clientes;
 
 import ec.edu.epn.grupo5.basededatos.*;
-import ec.edu.epn.grupo5.clientes.excepciones.ErrorCedula;
 import ec.edu.epn.grupo5.validacion.ValidadorCedula;
 
 import java.sql.SQLException;
@@ -10,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class ControladorCliente {
-
+    //a
     private ConexionBaseDatos conexion;
 
     public ControladorCliente(ConexionBaseDatos conexion) {
@@ -18,6 +17,9 @@ public class ControladorCliente {
     }
 
     public void registrarCliente(Cliente cliente) throws Exception{
+
+        ValidadorCedula validadorCedula = new ValidadorCedula();
+        validadorCedula.validar(cliente.getCedula());
 
         InsertSentence sentencia = new InsertSentence(
                 "clientes",
@@ -32,6 +34,7 @@ public class ControladorCliente {
                 cliente.getTelefonoContacto(),
                 cliente.getDireccion());
         try{
+
             conexion.ejecutarSentencia(sentencia.getSentence());
         }catch (SQLException ex){
             throw new Exception("El sistema no pudo registral al cliente");
@@ -58,13 +61,12 @@ public class ControladorCliente {
         }
     }
 
-    public boolean eliminarCliente(String cedulaCLiente) throws ErrorCedula {
-        ValidadorCedula validadorCedula = new ValidadorCedula();
-        validadorCedula.validar(cedulaCLiente);
-        try {
-            conexion.ejecutarSentencia(new DeleteSentence("clientes", cedulaCLiente).getSentence());
+    public boolean eliminarCliente(String cedulaCliente) {
+
+        try{
+            conexion.ejecutarSentencia(new DeleteSentence("clientes",cedulaCliente).getSentence());
             return true;
-        } catch (Exception e) {
+        }catch (Exception ex){
             return false;
         }
     }
