@@ -1,7 +1,9 @@
 package ec.edu.epn.grupo5.clientes;
 
+import ec.edu.epn.grupo5.clientes.herramientas.Parser;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 public class Cliente {
     private final String cedula;
     private final String nombres;
@@ -33,7 +35,7 @@ public class Cliente {
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.fecha = stringALocalDate(fecha);
+        this.fecha = Parser.stringALocalDate(fecha);
         this.sexo = sexo;
         this.telefono = telefono;
         this.nombreContacto = nombreContacto;
@@ -42,9 +44,6 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    private static LocalDate stringALocalDate(String fecha) {
-        return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-    }
     /*
     public Cliente(String cedula, String nombres, String apellidos, String fecha, char sexo, String telefono, String nombreContacto,
                     String telefonoContacto, String correoElectronico, String direccion) {

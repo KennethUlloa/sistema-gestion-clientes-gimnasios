@@ -57,4 +57,14 @@ public class ControladorCliente {
             throw new Exception("El sistema no pudo realizar la consulta");
         }
     }
+
+    public boolean eliminarCliente(String cedulaCliente) {
+
+        try{
+            conexion.ejecutarSentencia(new DeleteSentence("clientes",cedulaCliente).getSentence());
+            return true;
+        }catch (Exception ex){
+            return false;
+        }
+    }
 }
