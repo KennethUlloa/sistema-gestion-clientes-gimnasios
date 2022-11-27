@@ -18,6 +18,9 @@ public class ControladorCliente {
 
     public void registrarCliente(Cliente cliente) throws Exception{
 
+        ValidadorCedula validadorCedula = new ValidadorCedula();
+        validadorCedula.validar(cliente.getCedula());
+
         InsertSentence sentencia = new InsertSentence(
                 "clientes",
                 cliente.getCedula(),
