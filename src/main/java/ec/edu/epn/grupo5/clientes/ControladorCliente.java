@@ -1,6 +1,7 @@
 package ec.edu.epn.grupo5.clientes;
 
 import ec.edu.epn.grupo5.basededatos.*;
+import ec.edu.epn.grupo5.clientes.excepciones.ErrorCedula;
 import ec.edu.epn.grupo5.validacion.ValidadorCedula;
 
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class ControladorCliente {
-    //a
+
     private ConexionBaseDatos conexion;
 
     public ControladorCliente(ConexionBaseDatos conexion) {
@@ -31,7 +32,6 @@ public class ControladorCliente {
                 cliente.getTelefonoContacto(),
                 cliente.getDireccion());
         try{
-
             conexion.ejecutarSentencia(sentencia.getSentence());
         }catch (SQLException ex){
             throw new Exception("El sistema no pudo registral al cliente");
@@ -55,6 +55,17 @@ public class ControladorCliente {
                     telefonoContacto, correoElectronico, direccion);
         }catch (Exception ex){
             throw new Exception("El sistema no pudo realizar la consulta");
+        }
+    }
+
+    public boolean eliminarCliente(String cedulaCLiente) throws ErrorCedula {
+        ValidadorCedula validadorCedula = new ValidadorCedula();
+        validadorCedula.validar(cedulaCLiente);
+        try {
+            conexion.ejecutarSentencia(new DeleteSentence("clientes", cedulaCLiente).getSentence());
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }

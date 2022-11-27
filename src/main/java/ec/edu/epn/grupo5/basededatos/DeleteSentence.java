@@ -10,7 +10,7 @@ public class DeleteSentence implements SQLSentence {
     }
     @Override
     public String getSentence() throws Exception {
-        if (condition.equals("")) return "DELETE FROM " + table;
+        if (condition.equals("") || !condition.matches("[0-9]*")) return "DELETE FROM " + table;
         return String.format("DELETE FROM %s WHERE %s", table, condition);
     }
 }
