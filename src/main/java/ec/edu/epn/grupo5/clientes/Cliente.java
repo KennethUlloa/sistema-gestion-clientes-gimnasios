@@ -32,23 +32,9 @@ public class Cliente {
 
     public Cliente(String cedula, String nombres, String apellidos, String fecha, char sexo, String telefono,
                     String nombreContacto, String telefonoContacto, String correoElectronico, String direccion) {
-        this.cedula = cedula;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.fecha = Parser.stringALocalDate(fecha);
-        this.sexo = sexo;
-        this.telefono = telefono;
-        this.nombreContacto = nombreContacto;
-        this.telefonoContacto = telefonoContacto;
-        this.correoElectronico = correoElectronico;
-        this.direccion = direccion;
+        this(cedula, nombres, apellidos, Parser.stringALocalDate(fecha), sexo, telefono, nombreContacto,
+                telefonoContacto, correoElectronico, direccion);
     }
-
-    /*
-    public Cliente(String cedula, String nombres, String apellidos, String fecha, char sexo, String telefono, String nombreContacto,
-                    String telefonoContacto, String correoElectronico, String direccion) {
-        this(cedula, nombres, apellidos, stringALocalDate(fecha), sexo, telefono, nombreContacto, telefonoContacto, correoElectronico, direccion);
-    }*/
 
     public String getCedula() {
         return cedula;
