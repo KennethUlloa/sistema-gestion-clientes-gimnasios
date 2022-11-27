@@ -1,6 +1,7 @@
 package ec.edu.epn.grupo5.clientes;
 
 import ec.edu.epn.grupo5.basededatos.*;
+import ec.edu.epn.grupo5.clientes.excepciones.ErrorCedula;
 import ec.edu.epn.grupo5.validacion.ValidadorCedula;
 
 import java.sql.SQLException;
@@ -61,8 +62,9 @@ public class ControladorCliente {
         }
     }
 
-    public boolean eliminarCliente(String cedulaCliente) {
-
+    public boolean eliminarCliente(String cedulaCliente) throws ErrorCedula {
+        ValidadorCedula validadorCedula = new ValidadorCedula();
+        validadorCedula.validar(cedulaCliente);
         try{
             conexion.ejecutarSentencia(new DeleteSentence("clientes",cedulaCliente).getSentence());
             return true;

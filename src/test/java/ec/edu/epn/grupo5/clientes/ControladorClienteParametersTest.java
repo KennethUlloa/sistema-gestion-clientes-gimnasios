@@ -75,7 +75,7 @@ public class ControladorClienteParametersTest {
     }
 
     @Test
-    public void given_parameters_when_delete_then_ok(){
+    public void given_parameters_when_delete_then_ok() throws  Exception{
         assertEquals(expected, controladorCliente.eliminarCliente(cedulaCliente));
     }
 
